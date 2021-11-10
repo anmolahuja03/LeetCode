@@ -1,4 +1,5 @@
 /* Approach 1 - Recursion
+// Type 1
 class Solution {
 public:
     int helper(vector<vector<int>>& grid, int i, int j) {
@@ -23,10 +24,39 @@ public:
         return helper(grid, 0, 0);
     }
 };
+
+------------------------------------------------------------------------------
+
+// Type 2 - Recursion
+class Solution {
+public:
+    int helper(vector<vector<int>>& grid, int i, int j) {
+        int m = grid.size();
+        int n = grid[0].size();
+        
+        // Base Case
+        if(i == 0 && j == 0)
+            return grid[i][j];
+            
+        // Boundary Checks
+        if(i < 0 || j < 0)
+            return INT_MAX;
+        
+        int option1 = helper(grid, i - 1, j);
+        int option2 = helper(grid, i, j - 1);
+        
+        return min(option1, option2) + grid[i][j];
+    }
+    
+    int minPathSum(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        return helper(grid, m - 1, n - 1);
+    }
+};
+
+-------------------------------------------------------------------------------
 */
-
-//-------------------------------------------------------------------------------
-
 
 // Approach 2 - DP Bottom Up
 class Solution {
@@ -58,3 +88,4 @@ public:
         return dp[m - 1][n - 1];
     }
 };
+
